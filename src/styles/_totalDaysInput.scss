@@ -9,4 +9,54 @@
         font-size: 24px;
         font-weight: bold;
     }
+
+    .c-datepicker {
+        text-align: center;
+            &__start-date {
+                display: inline-flex;
+                margin-bottom: 120px;
+
+                &.-second-child {
+                    margin-left: 7px;
+                }
+            }
+            .react-datepicker-popper {
+                padding-right: 20px;
+                
+                @media screen and (max-width: 800px){
+                    left: -100px !important;
+                }
+            }
+
+            &__title {
+                margin-top: 0;
+                margin-bottom: 0;
+                text-align: center;
+                font-size: 1.5rem;
+            }
+
+        input {
+            padding: 8px;
+            border-radius: 10px;
+            border: none;
+            font-size: 1rem;
+            font-weight: bold;
+            width: 60%;
+        }
+
+        .-submit {
+            padding: 10px 30px;
+            border-radius: 15px;
+            background: #2459db;
+            color: white;
+            border: none;
+            font-weight: bold;
+            font-size: 20px;
+
+            &:hover {
+                background: white;
+                color: #2459db;
+            }
+        }
+    }
 }
