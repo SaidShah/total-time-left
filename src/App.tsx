@@ -1,6 +1,6 @@
-import './styles/App.scss';
-import TotalDaysLeft from './components/TotalDaysContainer';
-import React from 'react';
+import "./styles/App.scss";
+import TotalDaysLeft from "./components/TotalDaysContainer";
+import React from "react";
 
 const App: React.FC = () => {
   return (
@@ -8,6 +8,6 @@ const App: React.FC = () => {
       <TotalDaysLeft/>
     </div>
   );
-}
+};
 
 export default App;
