@@ -1,12 +1,14 @@
 import React from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { calculateDays } from "../js/calculate";
 
 interface IDatePickerContainerState {
     startDate: any;
-    date: any;
-    endDate: any;
-    endDay: any;
+    date:      any;
+    endDate:   any;
+    endDay:    any;
+    result:    string;
 }
 
 class DatePickerContainer extends React.Component<{}, IDatePickerContainerState> {
@@ -17,9 +19,10 @@ class DatePickerContainer extends React.Component<{}, IDatePickerContainerState>
 
     state = {
         startDate: new Date(),
-        date: null,
-        endDate: new Date(),
-        endDay: null
+        date:      null,
+        endDate:   new Date(),
+        endDay:    null,
+        result:    "",
         };
 
     public render(): JSX.Element {
@@ -40,12 +43,26 @@ class DatePickerContainer extends React.Component<{}, IDatePickerContainerState>
                 <div>
                     <button className = "-submit" onClick = {this._handleClick}>Check Days</button>
                 </div>
+                <div className = "-result">
+                    <h2>{` ${this.state.result} `}</h2>
+                </div>
             </div>
         );
     }
 
     private _handleClick(): void {
-        console.log(this.state)
+        const startingDate = this.state.startDate.toDateString();
+        const endingDate = this.state.endDate.toDateString();
+
+        if(startingDate === endingDate) {
+            this.setState({result: "Now is the time"});
+            return;
+        }
+        this._calculateDate(startingDate, endingDate);
+    }
+
+    private _calculateDate(startingDate: string, endingDate: string): void {
+        calculateDays(startingDate, endingDate);
     }
 
     handleChange = (date: any) => {
