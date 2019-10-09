@@ -1,7 +1,7 @@
 import React from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { calculateDays } from "../js/calculate";
+import checkDays from "../js/calculate";
 
 interface IDatePickerContainerState {
     startDate: any;
@@ -12,7 +12,7 @@ interface IDatePickerContainerState {
 }
 
 class DatePickerContainer extends React.Component<{}, IDatePickerContainerState> {
-    constructor(props: any){
+    constructor(props: any) {
         super(props);
         this._handleClick = this._handleClick.bind(this);
     }
@@ -51,18 +51,21 @@ class DatePickerContainer extends React.Component<{}, IDatePickerContainerState>
     }
 
     private _handleClick(): void {
-        const startingDate = this.state.startDate.toDateString();
-        const endingDate = this.state.endDate.toDateString();
+        const startingDate:string = this.state.startDate.toDateString();
+        const endingDate:string = this.state.endDate.toDateString();
 
         if(startingDate === endingDate) {
-            this.setState({result: "Now is the time"});
+            this.setState({result: "Dates cannot be blank or the same"});
             return;
         }
-        this._calculateDate(startingDate, endingDate);
-    }
 
-    private _calculateDate(startingDate: string, endingDate: string): void {
-        calculateDays(startingDate, endingDate);
+        const numberOfDays:number = checkDays(startingDate, endingDate);
+        if(numberOfDays < 0) {
+            this.setState({result: "The starting date must be after the ending date"});
+            return;
+        }
+        const totalDays:string = numberOfDays.toString(10);
+        this.setState({result: `${totalDays} Day${numberOfDays > 1 ? "s" : "" } Left!`});
     }
 
     handleChange = (date: any) => {

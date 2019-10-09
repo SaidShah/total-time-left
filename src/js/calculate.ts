@@ -1,16 +1,3 @@
-export function calculateDays(firstDate: string, secondDate: string): number {
-    const startingDate:string[] = firstDate.split(" ");
-    const endingDate:string[]   = secondDate.split(" ");
-    const firstMonth = _getMonth(startingDate[1]);
-    console.log("first month " , firstMonth);
-    const secondMonth = _getMonth(endingDate[1]);
-    console.log('Second Date ', secondMonth)
-// const oneDay = 24 * 60 * 60 * 1000; // hours*minutes*seconds*milliseconds
-// const firstDate = new Date(2008, 1, 12);
-// const secondDate = new Date(2008, 1, 22);
-    return -1;
-}
-
 function _getMonth(givenValue: string): number {
 
     switch(givenValue) {
@@ -42,3 +29,19 @@ function _getMonth(givenValue: string): number {
             return 0;
     }
 }
+
+export const checkDays:any = (firstDate: string, secondDate: string) => {
+    const startingDate:string[] = firstDate.split(" ");
+    const endingDate:string[]   = secondDate.split(" ");
+    const firstMonth:number     = _getMonth(startingDate[1]);
+    const secondMonth:number    = _getMonth(endingDate[1]);
+    const oneDay:number         = 24 * 60 * 60 * 1000;
+    const startDate:Date        = new Date(parseInt(startingDate[3], 10), firstMonth-1, parseInt(startingDate[2], 10));
+    const endDate:Date          = new Date(parseInt(endingDate[3], 10), secondMonth-1, parseInt(endingDate[2], 10));
+    if(startDate > endDate) {
+        return -1;
+    }
+    return Math.floor(Math.abs(startDate.getTime() - endDate.getTime()) / oneDay);
+};
+
+export default checkDays;
